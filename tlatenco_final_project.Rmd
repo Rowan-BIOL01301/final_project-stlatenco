@@ -47,7 +47,7 @@ glimpse(diversity_school)
 
 ## Question 1
 
-#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+#### Is higher education cheaper in the Northeast or Southeast region of the U.S?
 
 ### Methods
 
@@ -85,10 +85,6 @@ tuition_cost %>%
   labs(x = "Type of Institution",
        y = "Mean In State Tuition",
        fill = "Us Region")
-
-  
-  
-
 
 ```
 
