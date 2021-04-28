@@ -336,6 +336,27 @@ summary {
 </div>
 <div id="methods" class="section level3">
 <h3>Methods</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>northeast <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Connecticut&quot;</span>, <span class="st">&quot;Maine&quot;</span>, <span class="st">&quot;Massachusetts&quot;</span>, <span class="st">&quot;New Hampshire&quot;</span>, <span class="st">&quot;New Jersey&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Pennsylvania&quot;</span>, <span class="st">&quot;Rhode Island&quot;</span>, <span class="st">&quot;Vermont&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>southeast <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Alabama&quot;</span>, <span class="st">&quot;Florida&quot;</span>, <span class="st">&quot;Georgia&quot;</span>, <span class="st">&quot;Arkansas&quot;</span>, <span class="st">&quot;Louisiana&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>, <span class="st">&quot;North Carolina&quot;</span>, <span class="st">&quot;South Carolina&quot;</span>, <span class="st">&quot;Tennessee&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>interest_states <span class="ot">&lt;-</span> <span class="fu">c</span>(northeast, southeast)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>tuition_cost <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> interest_states) <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">us_region =</span> <span class="fu">if_else</span>(state <span class="sc">%in%</span> northeast, <span class="st">&quot;Northeast&quot;</span>, <span class="st">&quot;Southeast&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(us_region, type) <span class="sc">%&gt;%</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">mean</span>(in_state_tuition)) </span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+## # Groups:   us_region [2]
+##   us_region type       `mean(in_state_tuition)`
+##   &lt;chr&gt;     &lt;chr&gt;                         &lt;dbl&gt;
+## 1 Northeast For Profit                   18369.
+## 2 Northeast Private                      34787.
+## 3 Northeast Public                        8673.
+## 4 Southeast For Profit                   11338.
+## 5 Southeast Private                      24305.
+## 6 Southeast Public                        5451.</code></pre>
 </div>
 <div id="answer" class="section level3">
 <h3>Answer</h3>

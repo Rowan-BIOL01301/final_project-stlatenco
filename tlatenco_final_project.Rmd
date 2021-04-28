@@ -51,8 +51,20 @@ glimpse(diversity_school)
 
 ### Methods
 
-```{r question 1}
+```{r question 1 code}
 
+northeast <- c("Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont")
+
+southeast <- c("Alabama", "Florida", "Georgia", "Arkansas", "Louisiana", "Mississippi", "North Carolina", "South Carolina", "Tennessee")
+
+interest_states <- c(northeast, southeast)
+
+tuition_cost %>%
+  filter(state %in% interest_states) %>%
+  mutate(us_region = if_else(state %in% northeast, "Northeast", "Southeast")) %>%
+  group_by(us_region, type) %>%
+  summarise(mean(in_state_tuition)) 
+  
 
 
 ```
