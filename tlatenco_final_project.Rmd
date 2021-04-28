@@ -47,11 +47,11 @@ glimpse(diversity_school)
 
 ## Question 1
 
-#### Is higher education cheaper in the Northeast or Southeast region of the U.S?
+#### Is private, for-profit, or public education cheaper in the Northeast or Southeast region of the U.S?
 
 ### Methods
 
-```{r question 1 code}
+```{r NE vs SE question 1 code}
 
 # create variable w/ northeast states
 northeast <- c("Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont")
@@ -91,7 +91,7 @@ tuition_cost %>%
 
 ### Answer
 
-Replace this text with your answer to your question.
+For the three types of institutions (private, for-profit, and public), higher education is cheaper in the Southeast as visualized by the plot.  
 
 
 <br><br>
