@@ -21,7 +21,7 @@ library(tidyverse)
 
 <br><br>
 
-## Introduction
+## This dataset examines tuition and cost at colleges and universities across the country. It also includes data on the diversity of US schools and post-graduation pay associated with each school.
 
 ```{r read-examine-data}
 tuition_cost <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
