@@ -2,7 +2,10 @@
 title: "Final Project"
 subtitle: "Data Science for Biologists, Spring 2021"
 author: "Sergio Tlatenco"
-output: html_document
+output: 
+  html_document: 
+    theme: readable
+    highlight: haddock
 editor_options: 
   chunk_output_type: console
 ---
