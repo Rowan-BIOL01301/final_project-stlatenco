@@ -53,17 +53,40 @@ glimpse(diversity_school)
 
 ```{r question 1 code}
 
+# create variable w/ northeast states
 northeast <- c("Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont")
 
+# create variable w/ southeast states
 southeast <- c("Alabama", "Florida", "Georgia", "Arkansas", "Louisiana", "Mississippi", "North Carolina", "South Carolina", "Tennessee")
 
+# create variable combining states from previous variables
 interest_states <- c(northeast, southeast)
 
+# start pipeline w/ appropriate data
 tuition_cost %>%
+  # filter for states in specified regions using saved variable combining vectors
   filter(state %in% interest_states) %>%
+  # pipe mutate function to create a column that labels school by region
   mutate(us_region = if_else(state %in% northeast, "Northeast", "Southeast")) %>%
+  # group schools by reigon and type of institution
   group_by(us_region, type) %>%
-  summarise(mean(in_state_tuition)) 
+  # summarize by mean in state tuition under named column
+  summarise(mean_in_state_tuition= mean(in_state_tuition)) %>%
+  # pipe ggplot() 
+  ggplot() +
+  # add aes w/ x reordered and fill mapped to us_region
+  aes(x = reorder(type, -mean_in_state_tuition), 
+      y = mean_in_state_tuition, 
+      fill = us_region) +
+  # add geom_col w/ position argument
+  geom_col(position = "dodge") + 
+  # add custom theme
+  theme_minimal() + 
+  labs(x = "Type of Institution",
+       y = "Mean In State Tuition",
+       fill = "Us Region")
+
+  
   
 
 
