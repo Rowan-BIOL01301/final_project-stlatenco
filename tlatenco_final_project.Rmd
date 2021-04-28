@@ -83,7 +83,7 @@ tuition_cost %>%
   # add custom theme
   theme_minimal() + 
   labs(x = "Type of Institution",
-       y = "Mean In State Tuition",
+       y = "Mean In-State-Tuition",
        fill = "Us Region")
 
 ```
