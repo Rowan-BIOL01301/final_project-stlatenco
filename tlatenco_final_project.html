@@ -33,6 +33,94 @@
     </style>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -181,6 +269,64 @@ summary {
 <p><br><br></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tuition_cost <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tuition_income <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_income.csv&#39;</span>) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>salary_potential <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/salary_potential.csv&#39;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>historical_tuition <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/historical_tuition.csv&#39;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>diversity_school <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/diversity_school.csv&#39;</span>) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tuition_cost)</span></code></pre></div>
+<pre><code>## Rows: 2,973
+## Columns: 10
+## $ name                 &lt;chr&gt; &quot;Aaniiih Nakoda College&quot;, &quot;Abilene Christian Uni…
+## $ state                &lt;chr&gt; &quot;Montana&quot;, &quot;Texas&quot;, &quot;Georgia&quot;, &quot;Minnesota&quot;, &quot;Cal…
+## $ state_code           &lt;chr&gt; &quot;MT&quot;, &quot;TX&quot;, &quot;GA&quot;, &quot;MN&quot;, &quot;CA&quot;, &quot;CO&quot;, &quot;NY&quot;, &quot;NY&quot;, …
+## $ type                 &lt;chr&gt; &quot;Public&quot;, &quot;Private&quot;, &quot;Public&quot;, &quot;For Profit&quot;, &quot;Fo…
+## $ degree_length        &lt;chr&gt; &quot;2 Year&quot;, &quot;4 Year&quot;, &quot;2 Year&quot;, &quot;2 Year&quot;, &quot;4 Year&quot;…
+## $ room_and_board       &lt;dbl&gt; NA, 10350, 8474, NA, 16648, 8782, 16030, 11660, …
+## $ in_state_tuition     &lt;dbl&gt; 2380, 34850, 4128, 17661, 27810, 9440, 38660, 53…
+## $ in_state_total       &lt;dbl&gt; 2380, 45200, 12602, 17661, 44458, 18222, 54690, …
+## $ out_of_state_tuition &lt;dbl&gt; 2380, 34850, 12550, 17661, 27810, 20456, 38660, …
+## $ out_of_state_total   &lt;dbl&gt; 2380, 45200, 21024, 17661, 44458, 29238, 54690, …</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tuition_income)</span></code></pre></div>
+<pre><code>## Rows: 209,012
+## Columns: 7
+## $ name        &lt;chr&gt; &quot;Piedmont International University&quot;, &quot;Piedmont Internatio…
+## $ state       &lt;chr&gt; &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC&quot;, &quot;NC…
+## $ total_price &lt;dbl&gt; 20174, 20174, 20174, 20174, 20514, 20514, 20514, 20514, 2…
+## $ year        &lt;dbl&gt; 2016, 2016, 2016, 2016, 2017, 2017, 2017, 2017, 2017, 201…
+## $ campus      &lt;chr&gt; &quot;On Campus&quot;, &quot;On Campus&quot;, &quot;On Campus&quot;, &quot;On Campus&quot;, &quot;On C…
+## $ net_cost    &lt;dbl&gt; 11475.00, 11451.00, 16229.00, 15592.00, 11668.39, 11643.9…
+## $ income_lvl  &lt;chr&gt; &quot;0 to 30,000&quot;, &quot;30,001 to 48,000&quot;, &quot;48_001 to 75,000&quot;, &quot;7…</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(salary_potential)</span></code></pre></div>
+<pre><code>## Rows: 935
+## Columns: 7
+## $ rank                      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, …
+## $ name                      &lt;chr&gt; &quot;Auburn University&quot;, &quot;University of Alabama…
+## $ state_name                &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;,…
+## $ early_career_pay          &lt;dbl&gt; 54400, 57500, 52300, 54500, 48400, 46600, 4…
+## $ mid_career_pay            &lt;dbl&gt; 104500, 103900, 97400, 93500, 90500, 89100,…
+## $ make_world_better_percent &lt;dbl&gt; 51, 59, 50, 61, 52, 53, 48, 57, 56, 58, 60,…
+## $ stem_percent              &lt;dbl&gt; 31, 45, 15, 30, 3, 12, 27, 17, 17, 20, 8, 7…</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(historical_tuition)</span></code></pre></div>
+<pre><code>## Rows: 270
+## Columns: 4
+## $ type         &lt;chr&gt; &quot;All Institutions&quot;, &quot;All Institutions&quot;, &quot;All Institution…
+## $ year         &lt;chr&gt; &quot;1985-86&quot;, &quot;1985-86&quot;, &quot;1985-86&quot;, &quot;1985-86&quot;, &quot;1985-86&quot;, &quot;…
+## $ tuition_type &lt;chr&gt; &quot;All Constant&quot;, &quot;4 Year Constant&quot;, &quot;2 Year Constant&quot;, &quot;A…
+## $ tuition_cost &lt;dbl&gt; 10893, 12274, 7508, 4885, 5504, 3367, 13822, 16224, 7421…</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(diversity_school)</span></code></pre></div>
+<pre><code>## Rows: 50,655
+## Columns: 5
+## $ name             &lt;chr&gt; &quot;University of Phoenix-Arizona&quot;, &quot;University of Phoe…
+## $ total_enrollment &lt;dbl&gt; 195059, 195059, 195059, 195059, 195059, 195059, 1950…
+## $ state            &lt;chr&gt; &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizona&quot;, &quot;Arizona…
+## $ category         &lt;chr&gt; &quot;Women&quot;, &quot;American Indian / Alaska Native&quot;, &quot;Asian&quot;,…
+## $ enrollment       &lt;dbl&gt; 134722, 876, 1959, 31455, 13984, 1019, 58209, 19039,…</code></pre>
 <p><br><br></p>
 </div>
 <div id="question-1" class="section level2">
