@@ -79,7 +79,8 @@ tuition_cost %>%
       y = mean_in_state_tuition, 
       fill = us_region) +
   # add geom_col w/ position argument
-  geom_col(position = "dodge") + 
+  geom_col(position = "dodge", 
+           color = "gray") + 
   # add custom theme
   theme_minimal() + 
   labs(x = "Type of Institution",
@@ -94,13 +95,42 @@ tuition_cost %>%
 For the three types of institutions (private, for-profit, and public), higher education is cheaper in the Southeast as visualized by the plot.  
 
 
-<br><br>
+<br>
 
 ## Question 2
 
 #### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
 
 ### Methods
+
+```{r}
+
+# start pipeline w/ appropriate data
+salary_potential %>%
+  # filter for states in specified regions using saved variable combining vectors
+  filter(state_name %in% interest_states) %>%
+  # pipe mutate function to create a column that labels school by region
+  mutate(us_region = if_else(state_name %in% northeast, "Northeast", "Southeast")) %>%
+  
+  group_by(us_region) %>%
+  
+  summarise(mean_early_career_pay = mean(early_career_pay), 
+            mean_mid_career_pay = mean(mid_career_pay)) %>%
+   pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>%
+  ggplot() + 
+  geom_point(size = 2.8, 
+               aes(y = us_region, 
+                   x = income, 
+                   color = us_region, 
+                   shape = career_phase)) +
+  scale_shape_discrete(labels=c("Early-Career","Mid-Career"),name= "Career Phase") +
+  scale_color_discrete(guide = FALSE)
+  
+
+
+
+```
+
 
 ### Answer
 
