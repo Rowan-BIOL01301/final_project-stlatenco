@@ -233,6 +233,31 @@ diversity_school %>%
 
 ### Methods
 
+```{r tuition timeline question 4 code, fig.height = 5, fig.width = 9}
+
+historical_tuition %>%
+  filter(type != "All Institutions") %>%
+  select(-tuition_type) %>%
+  group_by(year, type) %>% 
+  mutate(year = str_extract(year, "[0-9]{4}")) %>% 
+  summarise_at(vars(tuition_cost),              
+               list(tuition = sum)) %>%
+  ggplot() +
+  aes(x = year, 
+      y = tuition, 
+      color = type, 
+      group = type) +
+  geom_point() +
+  geom_line() + 
+  theme_grey() +
+  labs(x = "Year",
+       y = "Tuition",
+       color = "Institution Type")
+
+
+```
+
+
 ### Answer
 
 Replace this text with your answer to your question.
