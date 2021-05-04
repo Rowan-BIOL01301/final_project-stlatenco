@@ -27,6 +27,8 @@ options(scipen=999)
 ### This dataset examines tuition and cost at colleges and universities across the country. It also includes data on the diversity of US schools and post-graduation pay associated with each school.
 
 ```{r read-examine-data}
+
+## READ IN DATA
 tuition_cost <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
 
 tuition_income <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_income.csv') 
@@ -37,6 +39,8 @@ historical_tuition <- readr::read_csv('https://raw.githubusercontent.com/rfordat
 
 diversity_school <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/diversity_school.csv') 
 
+
+## Preview data
 glimpse(tuition_cost)
 glimpse(tuition_income)
 glimpse(salary_potential)
@@ -86,6 +90,7 @@ tuition_cost %>%
            color = "gray") + 
   # add custom theme
   theme_minimal() + 
+  # edit labels
   labs(x = "Type of Institution",
        y = "Mean In-State-Tuition",
        fill = "Us Region")
@@ -119,7 +124,7 @@ salary_potential %>%
   # use summarise function to group by mean of a column
   summarise(mean_early_career_pay = mean(early_career_pay), 
             mean_mid_career_pay = mean(mid_career_pay)) %>%
-  # use pivot_longer() ro make data tidy
+  # use pivot_longer() to make data tidy
   pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>% 
   # pipe ggplot()
   ggplot() + 
@@ -130,7 +135,9 @@ salary_potential %>%
                    color = us_region, 
                    shape = career_phase)) +
   # add geom_segment for lines going up to data points
-  geom_segment(aes(x = income, y = 0, 
+  geom_segment(aes(
+      x = income, 
+      y = 0, 
       xend = income,
       yend = us_region,
       color = us_region)) +  
@@ -207,7 +214,7 @@ diversity_school %>%
 `White` students have the highest total enrollment in NJ colleges and universities and the plot made indicates disproportionate diversity. 
 
 
-<br><br>
+<br>
 
 ## Question 4
 
