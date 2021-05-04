@@ -275,4 +275,4 @@ historical_tuition %>%
 
 ### Answer
 
-Tuition costs at private and public instutions have not seen a decrease since 1985. Instead, tuition has been steadily increasing with `Private` institutions showing a faster rate of increase in tuition cost. <br>
+Tuition costs at private and public instutions have not seen a decrease since 1985. Instead, tuition has been steadily increasing with `Private` institutions showing a faster rate of increase in tuition cost. 
