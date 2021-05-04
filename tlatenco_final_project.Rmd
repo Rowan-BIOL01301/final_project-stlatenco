@@ -95,7 +95,7 @@ tuition_cost %>%
 
 ### Answer
 
-For the three types of institutions (private, for-profit, and public), higher education is cheaper in the Southeast as visualized by the plot.  
+For the three types of institutions (private, for-profit, and public), higher education is cheaper in the `Southeast` as visualized by the plot.  
 
 
 <br>
@@ -106,7 +106,7 @@ For the three types of institutions (private, for-profit, and public), higher ed
 
 ### Methods
 
-```{r}
+```{r NE vs SE question 2 code}
 
 # start pipeline w/ appropriate data
 salary_potential %>%
@@ -120,7 +120,7 @@ salary_potential %>%
   summarise(mean_early_career_pay = mean(early_career_pay), 
             mean_mid_career_pay = mean(mid_career_pay)) %>%
   # use pivot_longer() ro make data tidy
-   pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>% 
+  pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>% 
   # pipe ggplot()
   ggplot() + 
   # add geom_point w/ color and shape mapped
@@ -135,7 +135,7 @@ salary_potential %>%
       yend = us_region,
       color = us_region)) +  
   # add custom theme
-  theme_bw() +
+  theme_classic() +
   # edit shape legend 
   scale_shape_discrete(labels = c("Early-Career", "Mid-Career"), 
                        name= "Career Phase") +
@@ -153,20 +153,58 @@ salary_potential %>%
 
 ### Answer
 
-The plot above shows that schools in the Northeast region have higher entry-level and mid-career incomes. 
+The plot above shows that schools in the `Northeast` region have higher entry-level and mid-career incomes. 
 
 <br>
 
 
 ## Question 3
 
-#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+#### Which (race) category has the highest number of enrolled students in New Jersey?
 
 ### Methods
 
+```{r NJ  diversity question 3 code, fig.height = 5, fig.width = 9}
+
+# rename category labels w/ line breaks
+new_labels <- c("White", "Hispanic", "Black", "Asian", "Unknown", "Non-Resident\nForeign", "Two or\n More Races", "Native Hawaiian/\nPacific Islander", "American Indian/\nAlaska Native")
+
+# pipe appropriate data
+diversity_school %>%
+  # filter for NJ as state
+  filter(state == "New Jersey") %>%
+  # remove Total Minority from category column
+  filter(category != "Total Minority") %>%
+  # remove Women from category column
+  filter(category != "Women") %>%
+  # group subset by category
+  group_by(category) %>%    
+  # summarize enrollment by category in new column
+  summarise_at(vars(enrollment),              
+               list(total_enrolled = sum)) %>%
+  # pipe ggplot()
+  ggplot() + 
+  # add aes w/ x reordered and fill mapped to category 
+  aes(x = reorder(category, -total_enrolled), y = total_enrolled, fill = category) +
+  # add columns
+  geom_col() +
+  # add custom theme
+  theme_bw() + 
+  # remove legend and edit x axis text size
+  theme(legend.position = "none", axis.text.x = element_text(size = 8)) + 
+  # change x axis names to saved variable w/ line breaks 
+  scale_x_discrete(labels = new_labels) +
+  # change labels
+  labs(x = "Category", 
+       y = "Total Enrollment in NJ")
+
+```
+
+
+
 ### Answer
 
-Replace this text with your answer to your question.
+`White` students have the highest total enrollment in NJ colleges and universities and the plot made indicates disproportionate diversity. 
 
 
 <br><br>
