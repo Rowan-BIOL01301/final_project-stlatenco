@@ -229,7 +229,7 @@ diversity_school %>%
 
 ## Question 4
 
-#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+#### Has tuition cost seen a decrease at private or public institutions since 1985?
 
 ### Methods
 
@@ -260,4 +260,4 @@ historical_tuition %>%
 
 ### Answer
 
-Replace this text with your answer to your question.
+Tuition costs at private and public instutions have not seen a decrease since 1985. Instead, tuition has been steadily increasing with 'Private' institutions showing a faster rate of increase in tuition cost. 
