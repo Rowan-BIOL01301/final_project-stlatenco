@@ -17,11 +17,14 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
 # Load all libraries you use HERE:
 library(tidyverse)
 
+# remove exponential notation for better visual in Q2
+options(scipen=999)
+
 ```
 
-<br><br>
+<br>
 
-## This dataset examines tuition and cost at colleges and universities across the country. It also includes data on the diversity of US schools and post-graduation pay associated with each school.
+### This dataset examines tuition and cost at colleges and universities across the country. It also includes data on the diversity of US schools and post-graduation pay associated with each school.
 
 ```{r read-examine-data}
 tuition_cost <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
@@ -99,7 +102,7 @@ For the three types of institutions (private, for-profit, and public), higher ed
 
 ## Question 2
 
-#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+#### How do (mean) early- and mid-career incomes compare between schools in the Northeast and Southeast regions?
 
 ### Methods
 
@@ -111,32 +114,49 @@ salary_potential %>%
   filter(state_name %in% interest_states) %>%
   # pipe mutate function to create a column that labels school by region
   mutate(us_region = if_else(state_name %in% northeast, "Northeast", "Southeast")) %>%
-  
+  # group subset by region
   group_by(us_region) %>%
-  
+  # use summarise function to group by mean of a column
   summarise(mean_early_career_pay = mean(early_career_pay), 
             mean_mid_career_pay = mean(mid_career_pay)) %>%
-   pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>%
+  # use pivot_longer() ro make data tidy
+   pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>% 
+  # pipe ggplot()
   ggplot() + 
+  # add geom_point w/ color and shape mapped
   geom_point(size = 2.8, 
                aes(y = us_region, 
                    x = income, 
                    color = us_region, 
                    shape = career_phase)) +
-  scale_shape_discrete(labels=c("Early-Career","Mid-Career"),name= "Career Phase") +
-  scale_color_discrete(guide = FALSE)
+  # add geom_segment for lines going up to data points
+  geom_segment(aes(x = income, y = 0, 
+      xend = income,
+      yend = us_region,
+      color = us_region)) +  
+  # add custom theme
+  theme_bw() +
+  # edit shape legend 
+  scale_shape_discrete(labels = c("Early-Career", "Mid-Career"), 
+                       name= "Career Phase") +
+  # remove color legend
+  scale_color_discrete(guide = FALSE) +
+  # edit x-axis limits for better visual
+  xlim(40000, 105000) + 
+  # clean labels
+  labs(x = "Income", 
+       y = "US Region")
   
-
-
 
 ```
 
 
 ### Answer
 
-Replace this text with your answer to your question.
+The plot above shows that schools in the Northeast region have higher entry-level and mid-career incomes. 
 
-<br><br>
+<br>
+
 
 ## Question 3
 
