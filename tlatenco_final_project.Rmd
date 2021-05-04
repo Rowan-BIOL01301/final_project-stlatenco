@@ -125,34 +125,45 @@ salary_potential %>%
   summarise(mean_early_career_pay = mean(early_career_pay), 
             mean_mid_career_pay = mean(mid_career_pay)) %>%
   # use pivot_longer() to make data tidy
-  pivot_longer(!us_region, names_to = "career_phase", values_to = "income")%>% 
+  pivot_longer(!us_region, names_to = "career_phase", values_to = "income") %>% 
   # pipe ggplot()
   ggplot() + 
   # add geom_point w/ color and shape mapped
-  geom_point(size = 2.8, 
+  geom_point(size = 3.8, 
                aes(y = us_region, 
                    x = income, 
                    color = us_region, 
                    shape = career_phase)) +
-  # add geom_segment for lines going up to data points
+  # add geom_segment for line between income data points
   geom_segment(aes(
-      x = income, 
-      y = 0, 
-      xend = income,
-      yend = us_region,
-      color = us_region)) +  
+      x = 56239.60, 
+      y = "Northeast", 
+      xend = 102302.97,
+      yend = "Northeast"), 
+      size = 0.1, 
+      color = "red") +
+  # add geom_segment for line between income data points
+  geom_segment(aes(
+      x = 47176.92, 
+      y = "Southeast", 
+      xend = 84937.18,
+      yend = "Southeast"), 
+      size = 0.1, 
+      color = "cyan3") +
   # add custom theme
   theme_classic() +
-  # edit shape legend 
-  scale_shape_discrete(labels = c("Early-Career", "Mid-Career"), 
-                       name= "Career Phase") +
-  # remove color legend
-  scale_color_discrete(guide = FALSE) +
   # edit x-axis limits for better visual
   xlim(40000, 105000) + 
+  # flip order of color legend for visual purposes
+  guides(color = guide_legend(reverse = TRUE)) +
+  # rename shape legend
+  scale_shape_discrete(labels = c("Early-Career", "Mid-Career"), 
+                       name= "Career Phase") +
   # clean labels
   labs(x = "Income", 
-       y = "US Region")
+       y = "US Region",
+       color = "US Region") 
+  
   
 
 ```
