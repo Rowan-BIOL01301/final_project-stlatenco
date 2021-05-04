@@ -2,6 +2,7 @@
 title: "Final Project"
 subtitle: "Data Science for Biologists, Spring 2021"
 author: "Sergio Tlatenco"
+date: "May 4, 2021"
 output: 
   html_document: 
     theme: readable
@@ -22,7 +23,9 @@ options(scipen=999)
 
 ```
 
-<br>
+##### Thank you for a great semester Dr. Spielman! I started learning HTML to assist in a side-project of mine and I thank you for introducing me to the world of coding and Data Science! 
+
+<br><br>
 
 ### This dataset examines tuition and cost at colleges and universities across the country. It also includes data on the diversity of US schools and post-graduation pay associated with each school.
 
@@ -229,27 +232,39 @@ diversity_school %>%
 
 ## Question 4
 
-#### Has tuition cost seen a decrease at private or public institutions since 1985?
+#### Has there been a decrease in tuition cost at private or public institutions since 1985?
 
 ### Methods
 
 ```{r tuition timeline question 4 code, fig.height = 5, fig.width = 9}
 
+# pipe appropriate data
 historical_tuition %>%
+  # remove All Institutions from type column
   filter(type != "All Institutions") %>%
+  # remove column
   select(-tuition_type) %>%
+  # group by specified columns
   group_by(year, type) %>% 
+  # mutate new column removing hyphen and numbers after hyphen in year column
   mutate(year = str_extract(year, "[0-9]{4}")) %>% 
+  # summarise tuition cost by year in new 'tuition' column
   summarise_at(vars(tuition_cost),              
                list(tuition = sum)) %>%
+  # pipe ggplot()
   ggplot() +
+  # add aes w/ several arguments including color and group mapped to type
   aes(x = year, 
       y = tuition, 
       color = type, 
       group = type) +
+  # add scatterplot function
   geom_point() +
+  # add line connection points
   geom_line() + 
+  # add custom theme
   theme_grey() +
+  # edit labels
   labs(x = "Year",
        y = "Tuition",
        color = "Institution Type")
@@ -260,4 +275,4 @@ historical_tuition %>%
 
 ### Answer
 
-Tuition costs at private and public instutions have not seen a decrease since 1985. Instead, tuition has been steadily increasing with 'Private' institutions showing a faster rate of increase in tuition cost. 
+Tuition costs at private and public instutions have not seen a decrease since 1985. Instead, tuition has been steadily increasing with `Private` institutions showing a faster rate of increase in tuition cost. <br>
